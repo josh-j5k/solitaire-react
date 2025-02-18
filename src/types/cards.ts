@@ -1,0 +1,1 @@
+export type component = 'Spade' | "Diamond" | "Heart" | "Club"
