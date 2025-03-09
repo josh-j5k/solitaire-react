@@ -1,0 +1,18 @@
+export const actionType = {
+	update_score: "update score",
+	update_streak: "update streak",
+	update_game_loading_animation: "update game loading animation",
+	update_win: "update win",
+	update_pause: "update pause",
+	upadate_game_started: "update game started",
+	update_menu_toggled: "update menu toggled",
+	update_loader: "update loader",
+	update_difficulty: "update difficulty",
+	update_height: "update height",
+	update_offset: "update offset",
+	update_is_mobile: "update is mobile",
+	update_how_to_play: "update how to play",
+	update_leaderboard: "update leaderboard",
+	update_popup: "update popup",
+	update_spinner_state: "update spinner state",
+}

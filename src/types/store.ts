@@ -1,4 +1,4 @@
-export type store = {
+export type state = {
     score: number,
     streak: number,
     gameLoadingAnimation: boolean,
@@ -7,7 +7,7 @@ export type store = {
     gameStarted: boolean,
     menuToggled: boolean,
     loader: boolean,
-    difficulty: "easy" | "hard" | "normal",
+    difficulty: "easy" | "hard" | "medium" | "extreme",
     height: number,
     offsetTop: number,
     isMobile: boolean,
