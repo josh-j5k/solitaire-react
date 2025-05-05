@@ -1,14 +1,19 @@
-import { useContext, useReducer, useState } from "react"
-
 import "./App.css"
 
-import Menu from "./components/Menu"
-import { useAppSelector } from "./features/app/hooks"
+// import Menu from "./components/Menu"
+import { useStore } from "./context/storeContext"
 
 function App() {
-	const win = useAppSelector((state) => state.win.value)
-
-	return <Menu />
+	const { state, dispatch } = useStore()
+	return (
+		<div className=" flex flex-col">
+			{state.height}
+			<button onClick={() => dispatch({ type: "update height", payload: 180 })}>
+				click to update
+			</button>
+		</div>
+	)
+	// return <Menu />
 }
 
 export default App

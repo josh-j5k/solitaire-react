@@ -1,12 +1,7 @@
+import { state } from "./types/store"
 
-import { useState } from "react";
-import type { state } from "./types/store";
-import type { card, TFoundation, row } from "./types/cards";
 
-import { actionType } from "./helpers/constants";
-import { resetStreak } from "./hooks/usePlayGame";
-
-export const initialState = <state>{
+const initialState: state = {
     score: 0,
     streak: 5,
     gameLoadingAnimation: true,
@@ -23,26 +18,21 @@ export const initialState = <state>{
     leaderboard: false,
     popup: false,
     spinerState: false,
-    leaderboardData: <Array<{ name: string, score: number, time: string }>>[]
-
+    leaderboardData: [],
+    wastePile: [],
+    tableau: Array(7).fill({
+        faceDown: [],
+        faceUp: [],
+    }),
+    stockPile: [],
+    foundation: {
+        0: [],
+        1: [],
+        2: [],
+        3: [],
+    }
 }
-
-export let stockPile = <card[]>([])
-
-
-export let wastePile = <card[]>([])
-export let tableau = <row[]>(Array(7).fill({
-    faceDown: <Array<card>>[],
-    faceUp: <Array<card>>[],
-}))
-
-export let foundation = <TFoundation>({
-    0: <Array<card>>[],
-    1: <Array<card>>[],
-    2: <Array<card>>[],
-    3: <Array<card>>[],
-})
-export let validateScore = {
+let validateScore = {
     0: {
         maxLength: 0,
         currentLength: 0,
@@ -61,41 +51,32 @@ export let validateScore = {
     },
 }
 
-export const nonReactiveState = <{ totalCards: number, streakInterval: number | undefined, timeInterval: number | undefined }>{
+const nonReactiveState = <{ totalCards: number, streakInterval: number | undefined, timeInterval: number | undefined }>{
     totalCards: 52,
     streakInterval: undefined,
     timeInterval: undefined
 
 }
 
-export let time = {
+let time = {
     minutes: 0,
     seconds: 0,
 }
-export function setTime(props: any) {
+function setTime(props: any) {
     time = props
 }
-export function resetStore(dispatch: React.Dispatch<{ type: string, value: any }>, state: state) {
+function resetStore() {
     for (const [key, value] of Object.entries(validateScore)) {
         value.currentLength = 0
         value.maxLength = 0
     }
-    if (Object.keys(foundation).length > 0) {
-        for (let [key, value] of Object.entries(foundation)) {
-            value.length = 0
-        }
-    }
-    tableau.forEach(item => {
-        item.faceDown.length = 0
-        item.faceUp.length = 0
-    })
-    stockPile.length = 0
-    wastePile.length = 0
+    // store = structuredClone(initialState)
     if (nonReactiveState.streakInterval) clearInterval(nonReactiveState.streakInterval)
     if (nonReactiveState.timeInterval) clearInterval(nonReactiveState.timeInterval)
     nonReactiveState.totalCards = 52
     time.minutes = 0
     time.seconds = 0
-    dispatch({ type: actionType.update_score, value: 0 })
-    resetStreak(dispatch, state.difficulty)
+
 }
+
+export { initialState, setTime, resetStore, nonReactiveState, validateScore }
